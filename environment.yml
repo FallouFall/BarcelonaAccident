@@ -14,7 +14,6 @@ channels:
   - https://conda.anaconda.org/rapidsai/linux-64
   - https://conda.anaconda.org/rapidsai/noarch
   - https://conda.anaconda.org/rapidsai-nightly/linux-64
-  - https://conda.anaconda.org/rapidsai-nightly/noarch
   - https://conda.anaconda.org/dask/label/dev/linux-64
   - https://conda.anaconda.org/dask/label/dev/noarch
   - https://conda.anaconda.org/pytorch/linux-64
