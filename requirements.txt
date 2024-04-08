@@ -122,7 +122,6 @@ pydeck==0.8.1b0
 pyforest==1.1.0
 Pygments==2.17.2
 pyparsing==3.1.2
-pypiwin32==223
 pyproj==3.6.1
 PyQt5==5.15.10
 PyQt5-Qt5==5.15.2
