@@ -4,12 +4,27 @@ channels:
   - conda-forge
   - fastai
   - pkgs/main
+  - https://anaconda.org
   - https://repo.anaconda.com/pkgs/main/win-64
   - https://repo.anaconda.com/pkgs/main/noarch
   - https://repo.anaconda.com/pkgs/r/win-64
   - https://repo.anaconda.com/pkgs/r/noarch
   - https://repo.anaconda.com/pkgs/msys2/win-64
   - https://repo.anaconda.com/pkgs/msys2/noarch
+  - https://conda.anaconda.org/rapidsai/linux-64
+  - https://conda.anaconda.org/rapidsai/noarch
+  - https://conda.anaconda.org/rapidsai-nightly/linux-64
+  - https://conda.anaconda.org/rapidsai-nightly/noarch
+  - https://conda.anaconda.org/dask/label/dev/linux-64
+  - https://conda.anaconda.org/dask/label/dev/noarch
+  - https://conda.anaconda.org/pytorch/linux-64
+  - https://conda.anaconda.org/pytorch/noarch
+  - https://conda.anaconda.org/conda-forge/linux-64
+  - https://conda.anaconda.org/conda-forge/noarch
+  - https://conda.anaconda.org/nvidia/linux-64
+  - https://conda.anaconda.org/nvidia/noarch
+  - https://conda.anaconda.org/gpuci/linux-64
+  - https://conda.anaconda.org/gpuci/noarch
   - defaults
 dependencies:
   - abseil-cpp=20211102.0=hd77b12b_0
