@@ -57,6 +57,7 @@ st.dataframe(df.head(5))
 st.divider()
 st.subheader("Barcelona Accients")
 px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUyaXI5bTV3NXlja3AifQ.Q3KozS09j8cSaQs-hMHgQQ")
+
 fig = px.scatter_mapbox(df,
                         lat="Latitud_WGS84",
                         lon="Longitud_WGS84",
