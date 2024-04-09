@@ -40,6 +40,7 @@ with st.sidebar :
 # ----- Title of the page -----
 
 st.title("🚖 Accident a Barcelona 2023  🚖")
+@st.cache_data
 def load_data() :
     try :
         url = "https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv"
@@ -61,14 +62,12 @@ with st.expander("Check the complete dataset:") :
 st.subheader("Accidents a Barcelona ")
 px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUyaXI5bTV3NXlja3AifQ.Q3KozS09j8cSaQs-hMHgQQ")
 
-fig = px.scatter_mapbox(df,
-                        lat="Latitud_WGS84",
-                        lon="Longitud_WGS84",
-                        size_max=4,
-                        zoom=13,
-                        width=800,
-                        height=600)
-fig.update_traces(marker=dict(color='red'))
+
+fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
+                        color_continuous_scale=px.colors.qualitative.Light24,
+                        zoom=10, height=600,width = 800)
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(title='Cluster accidents per Zona')
 st.plotly_chart(fig)
 st.divider()
 
