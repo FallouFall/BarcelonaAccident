@@ -60,7 +60,7 @@ st.markdown(
         '''
         ## 🧑‍🎓 Data Science Web Application
         - **Tech Stack:** Python
-        - **App URL:** [Data MLL App](https://accidentbcn.streamlit.app//)
+        - **App URL:** [Data MLL App](https://bcn-driving.streamlit.app/)
         ## Projects
         - **H**
             - **GitHub:** [Machine-Learing-Barcelona-Accidents-2023](https://github.com/FallouFall/BarcelonaAccident.git)

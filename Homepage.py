@@ -62,14 +62,11 @@ with st.expander("Check the complete dataset:") :
 st.subheader("Accidents a Barcelona ")
 px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUyaXI5bTV3NXlja3AifQ.Q3KozS09j8cSaQs-hMHgQQ")
 
-fig = px.scatter_mapbox(df,
-                        lat="Latitud_WGS84",
-                        lon="Longitud_WGS84",
-                        size_max=4,
-                        zoom=13,
-                        width=800,
-                        height=600)
-fig.update_traces(marker=dict(color='red'))
+fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
+                        color_continuous_scale=px.colors.qualitative.Light24,
+                        zoom=14, height=600,width = 800)
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(title='Cluster accidents per Zona')
 st.plotly_chart(fig)
 st.divider()
 
@@ -317,5 +314,4 @@ if st.button('Preveure'):
             unsafe_allow_html = True)
     score
 
-
-
+st.divider()
