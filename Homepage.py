@@ -54,7 +54,7 @@ def load_data() :
 df = load_data()
 
 
-with st.expander("Check the complete dataset:") :
+with st.expander("Comproveu el conjunt de dades complet.") :
     st.dataframe(df.head(15))
 
 
@@ -67,7 +67,7 @@ fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
                         color_continuous_scale=px.colors.qualitative.Light24,
                         zoom=11, height=600,width = 800)
 fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(title='Cluster accidents per Zona')
+fig.update_layout(title='Accidents per Zona')
 st.plotly_chart(fig)
 st.divider()
 
