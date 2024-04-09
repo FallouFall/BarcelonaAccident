@@ -33,30 +33,35 @@ st.set_page_config(
 with st.sidebar :
     st.image("eae_img.png" , width = 200)
     st.write(
-            """I delved into the extensive dataset of car accidents in Barcelona, Catalonia. Through meticulous analysis, I uncovered temporal and spatial patterns, identified key factors contributing to accidents, and developed predictive models to forecast future occurrences. My findings provided valuable insights for policymakers and urban planners, guiding efforts to enhance traffic safety measures and mitigate risks. Ultimately, the journey exemplified the power of data science in driving positive societal change and fostering safer communities.""")
+            """He indagat en un ampli conjunt de dades d'accidents de vehicles a Barcelona, Catalunya. Mitjançant una anàlisi meticulos, he desvet differents patrons temporals i espacials, he pogut identificar factors clau que contribueixen als accidents, i desenvolupar models predictius que ajuden a preveure futurs accidents. Les meves troballes proporcionen valuosos coneixements per a responsables de polítiques i urbanistes, orientant els esforços per millorar les mesures de seguretat del trànsit i mitigar els riscos. En última instància, aquest recorregut exemplifica el poder de la ciència de dades en impulsar canvis socials positius i fomentar comunitats  més  segures.""")
     st.write(
-            "Data extracted from: https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv")
+            "Les dades extretes de: https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv")
 
 # ----- Title of the page -----
 
-st.title("🚖 Catalunya Accidents 2023🚖")
+st.title("🚖 Accident a Barcelona 2023  🚖")
+@st.cache_data
+def load_data() :
+    try :
+        url = "https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv"
+        df = pd.read_csv(url , index_col = False)
+    except FileNotFoundError :
+        st.error("Error: Data file not found. Please check the path.")
 
-#nrows = st.slider("Select the number of rows to read:", min_value=150, max_value=24000, step=500)
-try :
-    url = "https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv"
-    df = pd.read_csv(url ,index_col=False)
-
-except FileNotFoundError :
-    st.error("Error: Data file not found. Please check the path.")
-
-st.dataframe(df.head(5))
-
+    return df  #
 
 
+df = load_data()
 
-st.divider()
-st.subheader("Barcelona Accients")
+
+with st.expander("Check the complete dataset:") :
+    st.dataframe(df.head(15))
+
+
+
+st.subheader("Accidents a Barcelona ")
 px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUyaXI5bTV3NXlja3AifQ.Q3KozS09j8cSaQs-hMHgQQ")
+
 fig = px.scatter_mapbox(df,
                         lat="Latitud_WGS84",
                         lon="Longitud_WGS84",
@@ -72,12 +77,13 @@ st.divider()
 
 
 st.divider()
-st.subheader("Barrio Mas Accidents")
+st.subheader("Barri amb més Accidents")
+
 with st.container() :
     barrio = df['Nom_barri'].value_counts().nlargest(30).sort_values(ascending = True)
     fig = px.bar(x = barrio.values , y = barrio.index , orientation = 'h' , width = 800 , height = 600 ,
-            labels = { 'x' : 'Accident' , 'y' : 'TOP Barrio' } ,
-            title = 'Top 20  Barrio Accidents' ,
+            labels = { 'x' : 'Accident' , 'y' : 'TOP Barri' } ,
+            title = 'Top 20  Barris amb més Accidents' ,
             color = barrio.index , color_continuous_scale = ['deepskyblue'] * len(barrio.index) ,
             color_discrete_sequence = px.colors.qualitative.Pastel * len(barrio.index) ,
             )
@@ -95,7 +101,7 @@ colors = px.colors.qualitative.Pastel[:top_N]
 color_map = {category: color for category, color in zip(top_causes.index, colors)}
 fig = px.histogram(df[df['Descripcio_causa_mediata'].isin(top_causes.index)],
                    x='Descripcio_causa_mediata',
-                   title=f"Top {top_N} Causas",
+                   title=f"Top {top_N} Causes",
                    height=650, width=800,
                    color='Descripcio_causa_mediata',
                    color_discrete_map=color_map)
@@ -104,7 +110,7 @@ st.plotly_chart(fig)
 
 
 st.divider()
-st.subheader("Horario mas Accidents")
+st.subheader("Horari amb  més Accidents")
 with st.container() :
     horaire = df['Hora_dia'].value_counts().sort_index()
     colors = px.colors.qualitative.Pastel[:len(horaire)]
@@ -112,8 +118,8 @@ with st.container() :
 
     # Create the bar chart
     fig = px.bar(x = horaire.index , y = horaire.values ,
-            labels = { 'x' : 'Horaire' , 'y' : 'Accident' } ,
-            title = 'Hora_dia Mas Accident' ,
+            labels = { 'x' : 'Horari' , 'y' : 'Accident' } ,
+            title = 'Dia i hora amb amb més Accidents' ,
             height = 600 , width = 800 ,
             color_discrete_sequence = colors)  # Using color_discrete_sequence
 
@@ -122,14 +128,14 @@ st.plotly_chart(fig)
 
 
 st.divider()
-st.subheader("Mes mas accidents")
+st.subheader("Mes amb  més Accidents")
 mes_count = df['Nom_mes'].value_counts().sort_index()
 colors = px.colors.qualitative.Pastel[:len(mes_count)]
 color_map = {category: color for category, color in zip(mes_count.index, colors)}
 
 fig = px.bar(x=mes_count.index, y=mes_count.values,
              labels={'x': 'Nom_mes', 'y': 'Accident'},
-             title='Nom_mes Mas Accident',
+             title='Mes amb  més Accidents',
              height=600, width=800,
              color=mes_count.index,
              color_discrete_map=color_map)
@@ -140,13 +146,13 @@ st.plotly_chart(fig)
 
 
 st.divider()
-st.subheader("Torn Accient")
+st.subheader("Quan hi han més Accidents")
 turnover_counts = df['Descripcio_torn'].value_counts()
 colors = px.colors.qualitative.Pastel[:len(turnover_counts)]
 # Create pie chart
 fig = px.pie(values=turnover_counts.values,
              names=turnover_counts.index,
-             title='Tiempo  Mas Accidentes',
+             title='Quan hi han més Accidents',
              color_discrete_sequence=colors,
              hole=0.3)
 st.plotly_chart(fig)
@@ -185,7 +191,7 @@ for k in K:
 
 
 st.divider()
-st.subheader("Distortion Model")
+st.subheader("Model de distorsió")
 fig = go.Figure()
 fig.add_trace(go.Scatter(
     x=K,
@@ -197,9 +203,9 @@ fig.add_trace(go.Scatter(
 ))
 
 fig.update_layout(
-    title='Elbow Method For Optimal k',
+    title='Mètode del colze per a k òptim',
     xaxis_title='k',
-    yaxis_title='Distortions',
+    yaxis_title='Distorsió',
     width=800,
     height=600,
 )
@@ -210,13 +216,13 @@ st.divider()
 
 
 
-st.subheader("Accidents Cluster ZONE")
+st.subheader("Cluster d'accidents per Zona")
 df['cluster'] = kmeans.labels_
 fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84', color='cluster',
                         color_continuous_scale=px.colors.qualitative.Light24,
                         zoom=10, height=600,width = 800)
 fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(title='Clustering of Accident Data')
+fig.update_layout(title='Cluster accidents per Zona')
 st.plotly_chart(fig)
 
 
@@ -244,8 +250,8 @@ def drivesafe( df , longitude , latitude ) :
 
 longitude=df['Longitud_WGS84']
 latitude=df['Latitud_WGS84']
-longitude =st.selectbox(' Longitude', longitude)
-latitude =st.selectbox(' Latitude', latitude)
+longitude =st.selectbox(' Longitud', longitude)
+latitude =st.selectbox(' Latitud', latitude)
 
 
 st.markdown(
@@ -259,18 +265,56 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-if st.button('Predict'):
+if st.button('Preveure'):
     prediction = drivesafe(df,longitude,latitude)
     score=pd.DataFrame(prediction)
-    df['cluster'] = kmeans.labels_
-    fig = px.scatter_mapbox(score , lat = 'Latitud_WGS84' , lon = 'Longitud_WGS84' , color = 'cluster' ,
-            color_continuous_scale = px.colors.qualitative.Light24 ,
-            size = 'cluster',
-            zoom = 12 , height = 600 , width = 800)
-    fig.update_layout(mapbox_style = "open-street-map")
-    fig.update_layout(title = 'Clustering of Accident Data')
+    fig = go.Figure()
 
+
+    fig.add_trace(
+            go.Scattermapbox(
+                    lat = df["Latitud_WGS84"] ,
+                    lon = df["Longitud_WGS84"] ,
+                    mode = "markers" ,
+                    marker = dict(
+                            size = 8 ,
+                            color = 'red'
+                            ) ,
+                    name = "Accident anterior"
+                    )
+            )
+
+
+    fig.add_trace(
+            go.Scattermapbox(
+                    lat = [latitude] ,
+                    lon = [longitude] ,
+                    mode = "markers" ,
+                    marker = dict(
+                            size = 20 ,
+                            color = 'green'
+                            ) ,
+                    name = " La meva posició"
+                    )
+            )
+
+    # Update the layout
+    fig.update_layout(
+            mapbox = dict(
+                    style = "carto-positron" ,
+                    center = dict(
+                            lat = latitude ,
+                            lon = longitude
+                            ) ,
+                    zoom = 13
+                    ) ,
+            width = 800 ,
+            height = 600
+            )
     st.plotly_chart(fig)
+    st.markdown(
+            f'<div style="background-color: lightgreen; padding: 10px; font-size: 25px;display: flex; align-items: center; width:400,justify-content: center;text-align:center;">⚠️  Nivell de vigilància al voltant de ⚠️ </div>' ,
+            unsafe_allow_html = True)
     score
 
 

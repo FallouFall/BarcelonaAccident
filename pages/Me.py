@@ -60,9 +60,10 @@ st.markdown(
         '''
         ## 🧑‍🎓 Data Science Web Application
         - **Tech Stack:** Python
-        - **App URL:** [Data MLL App](https://zomato-ml.streamlit.app/)
+        - **App URL:** [Data MLL App](https://accidentbcn.streamlit.app//)
         ## Projects
         - **H**
+            - **GitHub:** [Machine-Learing-Barcelona-Accidents-2023](https://github.com/FallouFall/BarcelonaAccident.git)
             - **GitHub:** [Machine-Learing-Resto-Reviews](https://github.com/FallouFall/zomato-ml)
             - **GitHub:** [eae_ipld_project](https://github.com/FallouFall/eae_ipld_project)
             - **Tech Stack:** JavaFX/Springboot/Angular https://www.gnudem.com/
@@ -76,6 +77,7 @@ st.markdown(
             - **GitHub (RMI Version):** [School Management with RMI GitHub Repo](https://github.com/FallouFall/ServeurGestionEtudiant)
             - **GitHub (Client Version):** [Client for School Management with RMI GitHub Repo](https://github.com/FallouFall/ClientGestionEtudiants)
             - **GitHub:** [Zomato Machine Learning](https://github.com/FallouFall/zomato-ml)
+            - **GitHub:** [Barcelona Accident 2023 M-Learning](https://github.com/FallouFall/BarcelonaAccident.git)
         ---
     
         ## 📫 How to Reach Me:
