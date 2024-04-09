@@ -40,7 +40,6 @@ with st.sidebar :
 # ----- Title of the page -----
 
 st.title("🚖 Accident a Barcelona 2023  🚖")
-@st.cache_data
 def load_data() :
     try :
         url = "https://opendata-ajuntament.barcelona.cat/data/es/dataset/accidents_causa_conductor_gu_bcn/resource/5a040155-38b3-4b19-a4b0-c84a0618d363/download/2023_accidents_causa_conductor_gu_bcn_.csv"
