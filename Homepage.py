@@ -50,6 +50,3 @@ except FileNotFoundError :
 st.dataframe(df.head(5))
 
 
-
-
-
