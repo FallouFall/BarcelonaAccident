@@ -99,6 +99,7 @@ optree==0.11.0
 overrides==7.7.0
 packaging==23.2
 pandas==2.2.1
+plotly==5.5.0
 pandocfilters==1.5.1
 parso==0.8.3
 patsy==0.5.6
