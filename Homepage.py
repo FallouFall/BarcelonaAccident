@@ -65,7 +65,7 @@ px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUya
 
 fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
                         color_continuous_scale=px.colors.qualitative.Light24,
-                        zoom=14, height=600,width = 800)
+                        zoom=12, height=600,width = 800)
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(title='Cluster accidents per Zona')
 st.plotly_chart(fig)
