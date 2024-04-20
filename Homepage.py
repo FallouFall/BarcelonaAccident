@@ -82,7 +82,6 @@ st.divider()
 
 
 
-st.divider()
 st.subheader("Barri amb més Accidents")
 
 with st.container() :
