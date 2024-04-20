@@ -54,7 +54,7 @@ def load_data() :
 df = load_data()
 
 
-with st.expander("Check the complete dataset:") :
+with st.expander("Comproveu el conjunt de dades complet.") :
     st.dataframe(df.head(15))
 
 
@@ -62,11 +62,20 @@ with st.expander("Check the complete dataset:") :
 st.subheader("Accidents a Barcelona ")
 px.set_mapbox_access_token("pk.eyJ1Ijoic25vd21hbjIxIiwiYSI6ImNsdW9ueHU1MjA3NzUyaXI5bTV3NXlja3AifQ.Q3KozS09j8cSaQs-hMHgQQ")
 
+
 fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
                         color_continuous_scale=px.colors.qualitative.Light24,
                         zoom=14, height=600,width = 800)
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(title='Cluster accidents per Zona')
+
+
+fig = px.scatter_mapbox(df, lat='Latitud_WGS84', lon='Longitud_WGS84',
+                        color_continuous_scale=px.colors.qualitative.Light24,
+                        zoom=11, height=600,width = 800)
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(title='Tots els accidents')
+
 st.plotly_chart(fig)
 st.divider()
 
